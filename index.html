@@ -5,53 +5,153 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Welcome to my GitHub</title>
     <style>
-        body {
+        :root {
+            --primary: #00ffcc;
+            --secondary: #b026ff;
+            --bg: #050505;
+        }
+        body, html {
             margin: 0;
             padding: 0;
+            height: 100%;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: var(--bg);
+            color: #fff;
+            overflow: hidden;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            background-color: #0d1117; /* Fondo oscuro estilo GitHub */
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
-            color: #c9d1d9;
         }
-        .tarjeta {
+        
+        /* Luces de fondo animadas */
+        .bg-animation {
+            position: absolute;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: radial-gradient(circle at 50% 50%, #111 0%, #000 100%);
+            z-index: -2;
+        }
+        .glow-circle {
+            position: absolute;
+            width: 350px; height: 350px;
+            background: var(--primary);
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.25;
+            animation: float 8s infinite alternate ease-in-out;
+            z-index: -1;
+        }
+        .glow-circle:nth-child(2) {
+            background: var(--secondary);
+            right: 15%; top: 15%;
+            animation-delay: -4s;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px) translateX(0px) scale(1); }
+            100% { transform: translateY(-40px) translateX(30px) scale(1.1); }
+        }
+
+        /* Tarjeta Glassmorphism */
+        .card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 24px;
+            padding: 4rem 5rem;
             text-align: center;
-            padding: 50px;
-            border-radius: 16px;
-            background: #161b22;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.4);
-            border: 1px solid #30363d;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.1);
+            animation: fadeIn 1s ease-out;
+            max-width: 90%;
+            position: relative;
+            overflow: hidden;
         }
-        .tarjeta:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 40px rgba(0,0,0,0.6);
+
+        /* Efecto de borde superior */
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 2px;
+            background: linear-gradient(90deg, transparent, var(--primary), var(--secondary), transparent);
         }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .github-icon {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 1.5rem;
+            fill: #fff;
+            filter: drop-shadow(0 0 15px rgba(255,255,255,0.1));
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        .card:hover .github-icon {
+            transform: scale(1.1) translateY(-10px);
+            fill: var(--primary);
+            filter: drop-shadow(0 0 25px var(--primary));
+        }
+
         h1 {
-            font-size: 2.8rem;
-            margin: 10px 0;
-            background: linear-gradient(90deg, #58a6ff, #3fb950);
+            font-size: 3.5rem;
+            margin: 0 0 15px 0;
+            background: linear-gradient(to right, #ffffff, #a3a3a3);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            font-weight: 700;
+            letter-spacing: -1.5px;
+            font-weight: 800;
         }
+
         p {
             font-size: 1.2rem;
-            color: #8b949e;
-            margin-top: 5px;
+            color: #888;
+            margin: 0;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 600;
         }
-        .icono {
-            color: #c9d1d9;
-            margin-bottom: 20px;
+
+        .badge {
+            display: inline-block;
+            margin-top: 2.5rem;
+            padding: 0.6rem 2rem;
+            border-radius: 50px;
+            background: linear-gradient(90deg, rgba(0,255,204,0.05), rgba(176,38,255,0.05));
+            border: 1px solid rgba(255,255,255,0.1);
+            color: #aaa;
+            font-size: 0.85rem;
+            text-decoration: none;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+
+        .badge:hover {
+            border-color: var(--primary);
+            color: #fff;
+            background: rgba(0,255,204,0.1);
+            box-shadow: 0 0 20px rgba(0, 255, 204, 0.2);
         }
     </style>
 </head>
 <body>
+    <!-- Fondos animados -->
+    <div class="bg-animation"></div>
+    <div class="glow-circle" style="left: 10%; bottom: 10%;"></div>
+    <div class="glow-circle"></div>
 
-    <div class="tarjeta">
-        <div class="icono">
-            <!-- Icono vectorial de GitHub -->
-            <svg height="80" aria-hidden="true" viewBox="0 0 16 16" version="1.1" width="80" data-view-component="true" fill="currentColor">
-                <path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1
+    <!-- Contenedor principal -->
+    <div class="card">
+        <svg class="github-icon" viewBox="0 0 16 16" aria-hidden="true">
+            <path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"></path>
+        </svg>
+        
+        <h1>Welcome to my GitHub</h1>
+        <p>Señor VK • vklf.es</p>
+        
+        <div class="badge">ASIR - Tarea 2.2 Redirección</div>
+    </div>
+</body>
+</html>
